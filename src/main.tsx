@@ -5,6 +5,7 @@ import LayoutPublico from './App.tsx'
 import './index.css'
 import Inicio from './paginas/Inicio.tsx'
 import NaoEncontrada from './paginas/NaoEncontrada.tsx'
+import BancoCompetencias from './paginas/inscricoes/BancoCompetencias.tsx'
 import TermoDesafio from './paginas/inscricoes/TermoDesafio.tsx'
 import InscricoesVisao from './paginas/inscricoes/Visao.tsx'
 import DesafioDetalhe from './paginas/nucleos/Desafio.tsx'
@@ -21,6 +22,7 @@ const rotas = createBrowserRouter([
       { path: 'nucleos/:slug/desafios/:numero', element: <DesafioDetalhe /> },
       { path: 'inscricoes', element: <InscricoesVisao /> },
       { path: 'inscricoes/desafio', element: <TermoDesafio /> },
+      { path: 'inscricoes/banco-de-competencias', element: <BancoCompetencias /> },
       { path: '*', element: <NaoEncontrada /> },
     ],
   },
