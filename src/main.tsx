@@ -11,6 +11,7 @@ import InscricoesVisao from './paginas/inscricoes/Visao.tsx'
 import DesafioDetalhe from './paginas/nucleos/Desafio.tsx'
 import NucleoDetalhe from './paginas/nucleos/Detalhe.tsx'
 import NucleosVisao from './paginas/nucleos/Visao.tsx'
+import PesquisadoresVisao from './paginas/pesquisadores/Visao.tsx'
 import RelatorioAnual from './paginas/relatorios/Anual.tsx'
 import RelatoriosVisao from './paginas/relatorios/Visao.tsx'
 
@@ -27,6 +28,7 @@ const rotas = createBrowserRouter([
       { path: 'inscricoes/banco-de-competencias', element: <BancoCompetencias /> },
       { path: 'relatorios', element: <RelatoriosVisao /> },
       { path: 'relatorios/anual-2025', element: <RelatorioAnual /> },
+      { path: 'pesquisadores', element: <PesquisadoresVisao /> },
       { path: '*', element: <NaoEncontrada /> },
     ],
   },
