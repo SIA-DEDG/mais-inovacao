@@ -5,12 +5,16 @@ import LayoutPublico from './App.tsx'
 import './index.css'
 import Inicio from './paginas/Inicio.tsx'
 import NaoEncontrada from './paginas/NaoEncontrada.tsx'
+import NucleoDetalhe from './paginas/nucleos/Detalhe.tsx'
+import NucleosVisao from './paginas/nucleos/Visao.tsx'
 
 const rotas = createBrowserRouter([
   {
     element: <LayoutPublico />,
     children: [
       { index: true, element: <Inicio /> },
+      { path: 'nucleos', element: <NucleosVisao /> },
+      { path: 'nucleos/:slug', element: <NucleoDetalhe /> },
       { path: '*', element: <NaoEncontrada /> },
     ],
   },
