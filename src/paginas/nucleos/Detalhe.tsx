@@ -16,7 +16,7 @@ import setaVerdeEscura from '../../assets/comum/seta-verde-escura.svg'
 import setaVoltarClara from '../../assets/comum/seta-voltar-clara.svg'
 import circuloIcone from '../../assets/nucleos/circulo-icone.svg'
 import { FaixaMarca } from '../../components/FaixaMarca'
-import { MapaInterativo } from '../../components/MapaInterativo'
+import { LegendaMapa, MapaPiaui } from '../../components/MapaInterativo'
 import { ChipStatus, EstadoVazio, Paginacao } from '../../components/pagina'
 import { Container, Eyebrow, LinkSeta } from '../../components/ui'
 import {
@@ -410,30 +410,6 @@ function SecaoChamadas({ detalhe }: { detalhe?: DetalheNucleo }) {
   )
 }
 
-const ROTULOS_MAPA: [string, number, number][] = [
-  ['Parnaíba', 450, 14],
-  ['Cocal', 480, 59],
-  ['Piripiri', 456, 145],
-  ['José de Freitas', 363, 177],
-  ['Floriano', 326, 392],
-  ['Oeiras', 411, 389],
-  ['Picos', 484, 396],
-  ['Uruçuí', 197, 464],
-  ['Paulistana', 497, 499],
-  ['São João do Piauí', 382, 517],
-  ['Bom Jesus', 188, 602],
-  ['Corrente', 138, 708],
-]
-
-const LEGENDA = [
-  ['bg-[#e4ebe6]', 'Sem pesquisadores'],
-  ['bg-green-200', '1–5'],
-  ['bg-green-400', '6–10'],
-  ['bg-green-600', '11–20'],
-  ['bg-green-800', '21–50'],
-  ['bg-green-900', '51 ou mais'],
-]
-
 type RankingProps = { itens: ItemRanking[]; maior: number; nomeLargura: string; cor: 'verde' | 'azul' }
 
 /** Barras proporcionais ao maior valor da lista completa (não só da coluna). */
@@ -475,32 +451,8 @@ function SecaoOndeEstao({ nucleo }: { nucleo: Nucleo }) {
         ) : (
           <div className="flex flex-col gap-10 xl:flex-row">
             <div className="flex w-full max-w-[600px] shrink-0 flex-col gap-4">
-              <div className="relative aspect-[600/763] w-full">
-                <MapaInterativo
-                  svg={detalhe.mapa}
-                  rotulo={`Mapa do Piauí com os pesquisadores do núcleo ${nucleo.nome} por município`}
-                  className="absolute top-0 right-0 w-[86.67%]"
-                />
-                {ROTULOS_MAPA.map(([nome, x, y]) => (
-                  <span
-                    key={nome}
-                    aria-hidden
-                    className="pointer-events-none absolute hidden text-[10px] font-semibold whitespace-nowrap text-ink sm:block"
-                    style={{ left: `${(x / 600) * 100}%`, top: `${(y / 763) * 100}%` }}
-                  >
-                    {nome}
-                  </span>
-                ))}
-              </div>
-              <ul className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
-                <li className="text-[12px] font-semibold text-ink">Pesquisadores por município</li>
-                {LEGENDA.map(([cor, faixa]) => (
-                  <li key={faixa} className="flex items-center gap-1.5 text-[12px] text-muted">
-                    <span className={`size-3.5 rounded-[3px] ${cor}`} />
-                    {faixa}
-                  </li>
-                ))}
-              </ul>
+              <MapaPiaui svg={detalhe.mapa} rotulo={`Mapa do Piauí com os pesquisadores do núcleo ${nucleo.nome} por município`} />
+              <LegendaMapa />
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-6">
               <p className="flex flex-col gap-0.5 rounded-2xl bg-green-800 px-5 py-4">
