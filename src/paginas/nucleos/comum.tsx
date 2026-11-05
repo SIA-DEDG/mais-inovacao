@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { Link } from 'react-router'
+import chevronCima from '../../assets/comum/chevron-cima-verde.svg'
 import setaDourada from '../../assets/comum/seta-dourada-pequena.svg'
 import setaVoltarVerde from '../../assets/comum/seta-voltar-verde.svg'
 import kpiDesafios from '../../assets/nucleos/kpi-desafios.svg'
@@ -31,14 +32,28 @@ type SeletorProps = { ativo: string; rotulo: string; voltarPara: { href: string;
 
 /** Seletor de núcleos que acompanha a rolagem nas páginas de núcleo e de desafio. */
 export function SeletorNucleos({ ativo, rotulo, voltarPara }: SeletorProps) {
+  const [aberto, setAberto] = useState(true)
+  const idLista = useId()
   return (
     <div className="z-20 border-b border-border bg-background py-5 shadow-[0_4px_12px_rgb(10_41_23/0.06)] lg:sticky lg:top-0">
-      <Container largo className="flex flex-col gap-3.5">
+      <Container largo className="flex flex-col">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            aria-expanded={aberto}
+            aria-controls={idLista}
+            onClick={() => setAberto((a) => !a)}
+            className="-mx-2 -my-1 flex flex-wrap items-center gap-2 rounded-lg px-2 py-1 text-left hover:bg-green-50"
+          >
             <span className="text-[12px] font-bold tracking-[0.72px] text-green-700">NÚCLEO SELECIONADO</span>
             <span className="text-[13px] text-muted">· {rotulo}</span>
-          </p>
+            <img
+              src={chevronCima}
+              alt=""
+              className={`size-3.5 transition-transform duration-300 ${aberto ? '' : 'rotate-180'}`}
+            />
+            <span className="sr-only">{aberto ? '(ocultar a lista de núcleos)' : '(mostrar a lista de núcleos)'}</span>
+          </button>
           <Link
             to={voltarPara.href}
             className="flex items-center gap-2 rounded-full border-[1.5px] border-green-700 bg-background py-[9px] pr-[18px] pl-4 text-[14px] font-semibold text-green-700 hover:bg-green-50"
@@ -47,25 +62,34 @@ export function SeletorNucleos({ ativo, rotulo, voltarPara }: SeletorProps) {
             {voltarPara.label}
           </Link>
         </div>
-        <ul className="flex flex-wrap gap-2">
-          {NUCLEOS.map((nucleo) => {
-            const selecionado = nucleo.slug === ativo
-            return (
-              <li key={nucleo.slug}>
-                <Link
-                  to={`/nucleos/${nucleo.slug}`}
-                  aria-current={selecionado ? 'page' : undefined}
-                  className={`flex items-center gap-2 rounded-full border py-2.5 pr-4 pl-3.5 whitespace-nowrap ${
-                    selecionado ? 'border-green-800 bg-green-800' : 'border-border bg-background hover:border-green-200 hover:bg-green-50'
-                  }`}
-                >
-                  <span className={`text-[12px] font-bold ${selecionado ? 'text-yellow-500' : 'text-muted'}`}>{nucleo.numero}</span>
-                  <span className={`text-[14px] font-semibold ${selecionado ? 'text-white' : 'text-green-800'}`}>{nucleo.nome}</span>
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
+        {/* Só a lista recolhe; o rótulo e o botão de voltar continuam visíveis. */}
+        <div
+          id={idLista}
+          inert={!aberto}
+          className={`grid transition-[grid-template-rows] duration-300 ${aberto ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+        >
+          <div className="overflow-hidden">
+            <ul className="flex flex-wrap gap-2 pt-3.5">
+              {NUCLEOS.map((nucleo) => {
+                const selecionado = nucleo.slug === ativo
+                return (
+                  <li key={nucleo.slug}>
+                    <Link
+                      to={`/nucleos/${nucleo.slug}`}
+                      aria-current={selecionado ? 'page' : undefined}
+                      className={`flex items-center gap-2 rounded-full border py-2.5 pr-4 pl-3.5 whitespace-nowrap ${
+                        selecionado ? 'border-green-800 bg-green-800' : 'border-border bg-background hover:border-green-200 hover:bg-green-50'
+                      }`}
+                    >
+                      <span className={`text-[12px] font-bold ${selecionado ? 'text-yellow-500' : 'text-muted'}`}>{nucleo.numero}</span>
+                      <span className={`text-[14px] font-semibold ${selecionado ? 'text-white' : 'text-green-800'}`}>{nucleo.nome}</span>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        </div>
       </Container>
     </div>
   )
