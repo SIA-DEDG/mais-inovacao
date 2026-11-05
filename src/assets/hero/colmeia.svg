@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 100 100" role="img" aria-labelledby="title desc">
+  <title id="title">Sete núcleos temáticos interligados</title>
+  <desc id="desc">Ícone vetorial com um núcleo central verde-escuro conectado a seis núcleos verde-claros ao seu redor.</desc>
+  <g fill="none" stroke="#4AAF75" stroke-width="4" stroke-linecap="round">
+    <path d="M50 50 L50 18 M50 50 L77.713 34 M50 50 L77.713 66 M50 50 L50 82 M50 50 L22.287 66 M50 50 L22.287 34"/>
+  </g>
+  <g fill="#4AAF75">
+    <circle cx="50" cy="18" r="8"/>
+    <circle cx="77.713" cy="34" r="8"/>
+    <circle cx="77.713" cy="66" r="8"/>
+    <circle cx="50" cy="82" r="8"/>
+    <circle cx="22.287" cy="66" r="8"/>
+    <circle cx="22.287" cy="34" r="8"/>
+  </g>
+  <circle cx="50" cy="50" r="11" fill="#086847"/>
+</svg>
